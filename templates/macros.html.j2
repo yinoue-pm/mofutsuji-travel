@@ -1,5 +1,7 @@
 {# ===========================================================================
-   再利用マクロ群： icon / hero / section / timeline_item / lodging_card / cost_summary
+   再利用マクロ群（編集型トラベルメディア版）
+     icon / rating_badge / hero / route_map / toc
+     section(章扉) / timeline_item / lodging_card / cost_summary
    - すべて self-contained（外部画像なし、インライン SVG）
    - 自動エスケープ前提（Jinja2 の autoescape=True）。安全な HTML は |safe を明示
    =========================================================================== #}
@@ -27,23 +29,24 @@
 
 {# ---- 評価バッジ（食べログ等の点数） ---- #}
 {% macro rating_badge(rating) -%}
-<span class="rating" title="評価 {{ rating }}">{{ icon('star') }}{{ '%.2f'|format(rating) }}</span>
+<span class="rating" title="評価 {{ rating }}">{{ icon('star') }}<span class="num">{{ '%.2f'|format(rating) }}</span></span>
 {%- endmacro %}
 
-{# ---- hero（タイトル＋期間＋ルート＋サマリ統計） ---- #}
+{# ---- hero（キッカー→大判明朝タイトル→リード文→統計→ルート） ---- #}
 {% macro hero(doc) -%}
 <header class="hero reveal" id="top">
   <p class="hero-kicker">ROAD TRIP ITINERARY</p>
   <h1 class="hero-title">{{ doc.meta.title }}</h1>
   {% if doc.meta.subtitle %}<p class="hero-sub">{{ doc.meta.subtitle }}</p>{% endif %}
-  {% if doc.meta.period %}<p class="hero-period">{{ icon('calendar') }}{{ doc.meta.period }}</p>{% endif %}
+  {% if doc.meta.lede %}<p class="hero-lede lede">{{ doc.meta.lede }}</p>{% endif %}
+  {% if doc.meta.period %}<p class="hero-period">{{ icon('calendar') }}<span class="num">{{ doc.meta.period }}</span></p>{% endif %}
 
   {% if doc.hero_stats %}
   <div class="stats">
     {% for s in doc.hero_stats %}
     <div class="stat">
       <div class="stat-ico">{{ icon(s.icon or 'pin') }}</div>
-      <div class="stat-val">{{ s.value }}{% if s.unit %}<span class="stat-unit">{{ s.unit }}</span>{% endif %}</div>
+      <div class="stat-val"><span class="num">{{ s.value }}</span>{% if s.unit %}<span class="stat-unit">{{ s.unit }}</span>{% endif %}</div>
       <div class="stat-label">{{ s.label }}</div>
     </div>
     {% endfor %}
@@ -59,18 +62,91 @@
 </header>
 {%- endmacro %}
 
-{# ---- 目次（セクションへジャンプ） ---- #}
+{# ---- SVG絵地図（手描き風ルート図）。各 section.pin を順に結ぶ ---- #}
+{% macro route_map(doc) -%}
+{%- set mp = doc.meta.map -%}
+{%- set pinned = doc.sections | selectattr('pin') | list -%}
+{%- if mp and pinned -%}
+{%- set s = mp.start -%}
+{%- set ns = namespace(d='M ' ~ s.x ~ ' ' ~ s.y) -%}
+{%- for sec in pinned -%}{%- set ns.d = ns.d ~ ' L ' ~ sec.pin[0] ~ ' ' ~ sec.pin[1] -%}{%- endfor -%}
+{%- set ns.d = ns.d ~ ' L ' ~ s.x ~ ' ' ~ s.y -%}
+<section class="routemap reveal" id="routemap" aria-label="旅のルート図">
+  <div class="rm-head">
+    <p class="kicker">ROUTE MAP</p>
+    <h2>旅のルート</h2>
+  </div>
+  <div class="rm-stage">
+    <svg viewBox="0 0 {{ mp.w or 1000 }} {{ mp.h or 680 }}" role="img"
+         aria-label="{{ doc.meta.route or '旅のルート図' }}" preserveAspectRatio="xMidYMid meet">
+      {% for l in mp.labels or [] %}
+      <text class="rm-region" x="{{ l.x }}" y="{{ l.y }}">{{ l.text }}</text>
+      {% endfor %}
+      <path class="rm-route" d="{{ ns.d }}"/>
+      {# 発着地（福津） #}
+      <g class="rm-node rm-start" transform="translate({{ s.x }},{{ s.y }})">
+        <circle class="rm-pin-start" r="15"/>
+        <path class="rm-home" d="M-6 2 L0 -6 L6 2 M-4 1 L-4 6 L4 6 L4 1"/>
+        <text class="rm-label" y="34">{{ s.label }}</text>
+      </g>
+      {# 宿泊地（温泉＝朱の番号ノード） #}
+      {% for sec in pinned %}
+      <g class="rm-node" transform="translate({{ sec.pin[0] }},{{ sec.pin[1] }})">
+        <circle class="rm-dot" r="17"/>
+        <text class="rm-no num" y="6">{{ '%02d'|format(loop.index) }}</text>
+        <text class="rm-label" y="40">{{ sec.map_label or sec.label }}{% if sec.night %} ♨{% endif %}</text>
+      </g>
+      {% endfor %}
+    </svg>
+  </div>
+  <p class="rm-cap">総走行 <span class="num">{{ '{:,}'.format(doc.sections[-1].dist_km) }}</span> km ・ {{ doc.lodging_count }}泊{{ doc.sections|length }}日 ・ いで湯 <span class="num">{{ doc.lodging_count }}</span> 湯</p>
+</section>
+{%- endif -%}
+{%- endmacro %}
+
+{# ---- 目次（旅程ダイジェスト） ---- #}
 {% macro toc(doc) -%}
 <nav class="toc reveal" aria-label="目次">
-  <div class="toc-head">行程</div>
+  <p class="kicker">ITINERARY</p>
+  <div class="toc-head">行程ダイジェスト</div>
   <ol class="toc-list">
     {% for s in doc.sections %}
-    <li><a href="#{{ s.slug }}"><span class="toc-day">{{ s.label }}</span>
-      <span class="toc-meta">{{ s.date }}（{{ s.weekday }}）</span>
-      <span class="toc-leg">{{ s.leg }}</span></a></li>
+    <li><a href="#{{ s.slug }}">
+      <span class="toc-no num">{{ '%02d'|format(loop.index) }}</span>
+      <span class="toc-main">
+        <span class="toc-title">{{ s.headline or s.leg }}</span>
+        <span class="toc-meta"><span class="num">{{ s.date }}</span>（{{ s.weekday }}）{% if s.night and s.night.card %}・{{ s.night.card.name }}{% endif %}</span>
+      </span>
+    </a></li>
     {% endfor %}
   </ol>
 </nav>
+{%- endmacro %}
+
+{# ---- セクション（1日＝章扉 ＋ タイムライン） ---- #}
+{% macro section(sec, no) -%}
+<section class="day" id="{{ sec.slug }}">
+  <header class="day-hd reveal">
+    <div class="day-no num">{{ '%02d'|format(no) }}</div>
+    <div class="day-info">
+      <p class="kicker">DAY {{ no }}　<span class="num">{{ sec.date }}</span>（{{ sec.weekday }}）</p>
+      <h2 class="day-title">{{ sec.headline or sec.leg }}</h2>
+      {% if sec.lede %}<p class="day-lede lede">{{ sec.lede }}</p>{% endif %}
+      <ul class="day-facts">
+        {% if sec.dist_km is not none %}<li>{{ icon('drive') }}走行 <span class="num">{{ '{:,}'.format(sec.dist_km) }}</span> km</li>{% endif %}
+        {% if sec.night and sec.night.card %}<li class="fact-onsen">{{ icon('onsen') }}{{ sec.night.card.name }}</li>{% endif %}
+      </ul>
+      {% if sec.leg %}<p class="day-leg">{{ sec.leg }}</p>{% endif %}
+    </div>
+  </header>
+  {% if sec.items %}
+  <ol class="timeline">
+    {% for item in sec.items %}{{ timeline_item(item, sec.slug, loop.index0) }}{% endfor %}
+  </ol>
+  {% else %}
+  <p class="empty">この日の予定は未登録です。</p>
+  {% endif %}
+</section>
 {%- endmacro %}
 
 {# ---- タイムライン上の1アイテム ---- #}
@@ -82,14 +158,14 @@
   <div class="item-dot" data-type="{{ item.type }}">{{ icon(item.type) }}</div>
   <div class="item-body">
     <div class="item-head">
-      {% if item.time %}<span class="item-time">{{ item.time }}</span>{% endif %}
+      {% if item.time %}<span class="item-time num">{{ item.time }}</span>{% endif %}
       <span class="item-title">{{ item.title }}</span>
       {% if item.rating %}{{ rating_badge(item.rating) }}{% endif %}
     </div>
     {% if item.desc %}<p class="item-desc">{{ item.desc }}</p>{% endif %}
     {% if item.cost is not none %}
       <span class="item-cost {{ 'is-minus' if item.cost < 0 else '' }}">
-        {{ item.cost_label or '費用' }}　¥{{ '{:,}'.format(item.cost) }}
+        {{ item.cost_label or '費用' }}　<span class="num">¥{{ '{:,}'.format(item.cost) }}</span>
       </span>
     {% endif %}
     {% if item.card %}{{ lodging_card(item.card) }}{% endif %}
@@ -108,38 +184,17 @@
     {% if card.room %}<div><dt>部屋</dt><dd>{{ card.room }}</dd></div>{% endif %}
     {% if card.plan %}<div><dt>プラン</dt><dd>{{ card.plan }}</dd></div>{% endif %}
     {% if card.address %}<div><dt>所在</dt><dd>{{ card.address }}</dd></div>{% endif %}
-    {% if card.tel %}<div><dt>電話</dt><dd><a href="tel:{{ card.tel|replace('-','') }}">{{ card.tel }}</a></dd></div>{% endif %}
+    {% if card.tel %}<div><dt>電話</dt><dd><a href="tel:{{ card.tel|replace('-','') }}" class="num">{{ card.tel }}</a></dd></div>{% endif %}
   </dl>
   {% if card.benefits %}<p class="card-benefits"><span>効能</span>{{ card.benefits }}</p>{% endif %}
   {% if card.price is not none %}
   <div class="card-price">
-    <span class="price-main">¥{{ '{:,}'.format(card.price) }}</span>
-    {% if card.discount %}<span class="price-disc">{{ card.discount_label or '割引' }} ¥{{ '{:,}'.format(card.discount) }}</span>{% endif %}
-    {% if card.net_price is not none and card.discount %}<span class="price-net">実質 ¥{{ '{:,}'.format(card.net_price) }}</span>{% endif %}
+    <span class="price-main num">¥{{ '{:,}'.format(card.price) }}</span>
+    {% if card.discount %}<span class="price-disc">{{ card.discount_label or '割引' }} <span class="num">¥{{ '{:,}'.format(card.discount) }}</span></span>{% endif %}
+    {% if card.net_price is not none and card.discount %}<span class="price-net">実質 <span class="num">¥{{ '{:,}'.format(card.net_price) }}</span></span>{% endif %}
   </div>
   {% endif %}
 </div>
-{%- endmacro %}
-
-{# ---- セクション（1日分） ---- #}
-{% macro section(sec) -%}
-<section class="day" id="{{ sec.slug }}">
-  <div class="day-head reveal">
-    <div class="day-badge">{{ sec.label }}</div>
-    <div class="day-meta">
-      <div class="day-date">{{ sec.date }}<span>（{{ sec.weekday }}）</span></div>
-      {% if sec.leg %}<div class="day-leg">{{ sec.leg }}</div>{% endif %}
-    </div>
-    {% if sec.dist_km is not none %}<div class="day-dist">{{ icon('drive') }}{{ '{:,}'.format(sec.dist_km) }}<span>km</span></div>{% endif %}
-  </div>
-  {% if sec.items %}
-  <ol class="timeline">
-    {% for item in sec.items %}{{ timeline_item(item, sec.slug, loop.index0) }}{% endfor %}
-  </ol>
-  {% else %}
-  <p class="empty">この日の予定は未登録です。</p>
-  {% endif %}
-</section>
 {%- endmacro %}
 
 {# ---- 集計（横棒グラフ）。負数（割引）は別色 ---- #}
@@ -147,8 +202,8 @@
 {%- set maxabs = summary.breakdown | map(attribute='amount') | map('abs') | max -%}
 <section class="summary reveal" id="summary" aria-label="費用集計">
   <div class="summary-head">
-    <h2>費用集計</h2>
-    <div class="summary-total">合計 <strong>¥{{ '{:,}'.format(summary.total) }}</strong></div>
+    <div><p class="kicker">BUDGET</p><h2>費用集計</h2></div>
+    <div class="summary-total">合計 <strong class="num">¥{{ '{:,}'.format(summary.total) }}</strong></div>
   </div>
   {% if summary.note %}<p class="summary-note">{{ summary.note }}</p>{% endif %}
   <div class="bars">
@@ -159,7 +214,7 @@
       <div class="bar-track">
         <div class="bar-fill" style="--w: {{ '%.1f'|format(pct) }}%"></div>
       </div>
-      <div class="bar-val">¥{{ '{:,}'.format(row.amount) }}</div>
+      <div class="bar-val num">¥{{ '{:,}'.format(row.amount) }}</div>
     </div>
     {% endfor %}
   </div>

@@ -102,11 +102,18 @@ mofutsuji-travel/
 meta:                       # 必須: title
   title: "四国の旅"
   subtitle: "7泊8日 …"      # 任意
+  lede: "福津を起点に…ロードトリップ。"  # 任意: ヒーローのリード文
   period: "2026年7月6日 〜 7月13日"
   route: "福津〜呉〜今治♨〜…"
   created: "2026年4月22日 (Ver.1.0)"
+  map:                      # 任意: SVG絵地図（手描き風ルート図・API不要）
+    w: 1000
+    h: 680
+    start: { x: 170, y: 250, label: "福津（発着）" }
+    labels:                 # 装飾の地方名ラベル
+      - { x: 505, y: 150, text: "瀬戸内海" }
 
-theme: "onsen"              # onsen | ocean | mono（src/theme.py）
+theme: "tabibook"           # tabibook(温泉旅雑誌) | onsen | ocean | mono（src/theme.py）
 
 hero_stats:                 # 任意: heroの統計チップ（label/value 必須）
   - { label: "走行距離", value: "1,697", unit: "km", icon: "drive" }
@@ -117,6 +124,10 @@ sections:                   # 必須: 1件以上
     weekday: "月"
     leg: "自宅 → 今治(湯ノ浦温泉)"
     dist_km: 441
+    headline: "軍港の記憶から、多島美のしまなみへ"   # 任意: 章扉の編集見出し
+    lede: "戦艦大和の故郷・呉をたどり…"              # 任意: その日のリード文
+    pin: [560, 290]         # 任意: ルート図のノード座標 [x, y]
+    map_label: "今治"        # 任意: ルート図のノード名
     items:                  # 1件以上推奨（空だと検証エラー）
       - time: "10:30-12:00"
         type: "sight"       # meal | sight | drive | ferry | lodging

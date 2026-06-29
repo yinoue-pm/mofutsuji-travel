@@ -40,8 +40,11 @@ def test_hero_fragment():
 def test_section_and_item_fragments():
     doc = _doc()
     sec = doc.sections[0]
-    s = G.render_section(sec)
-    assert sec.label in s
+    s = G.render_section(sec, 1)
+    # 章扉に編集見出し（headline）とリード文が出る
+    assert (sec.headline or sec.leg) in s
+    if sec.lede:
+        assert sec.lede in s
     assert 'class="timeline"' in s
 
     item = sec.items[0]
