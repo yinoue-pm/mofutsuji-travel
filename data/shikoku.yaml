@@ -10,19 +10,14 @@ meta:
   title: "四国の旅"
   subtitle: "2026年7月 ／ 7泊8日"
   period: "2026年7月6日(月) 〜 7月13日(月)"
-  route: "福津〜呉〜今治♨〜吉野川〜眉山〜徳島♨〜大浜海岸〜室戸岬♨〜四万十川♨〜高知〜足摺岬♨〜宇和島♨〜佐田岬〜別府♨〜大隅半島〜福津"
+  route: "福津~呉～今治♨🏨～吉野川~眉山～徳島♨🏨～大浜海岸~室戸岬♨🏨～四万十川♨🏨～高知~足摺岬♨🏨～宇和島♨🏨~佐多岬~別府♨🏨～大隅半島～福津"
   created: "2026年4月22日 (Ver.1.0)"
   # SVG絵地図（手描き風ルート図）の設定。各 section の pin [x,y] を順に結ぶ。
-  # 座標と地方名ラベルはデザイン用（地理的配置）であり、本文ではありません。
+  # 座標はデザイン用（地理的配置）。ノード名(map_label)はPDF記載の宿泊地。
   map:
     w: 1000
     h: 680
     start: { x: 170, y: 250, label: "福津（発着）" }
-    labels:
-      - { x: 505, y: 150, text: "瀬戸内海" }
-      - { x: 690, y: 415, text: "四国" }
-      - { x: 150, y: 520, text: "九州" }
-      - { x: 660, y: 645, text: "太平洋" }
 
 theme: "tabibook"
 
@@ -37,7 +32,6 @@ sections:
   - date: "7/6"
     weekday: "月"
     label: "1日目"
-    leg: "自宅 → 呉 → しまなみ海道 → 今治(湯ノ浦温泉)"
     dist_km: 441
     pin: [560, 290]
     map_label: "今治"
@@ -90,7 +84,6 @@ sections:
   - date: "7/7"
     weekday: "火"
     label: "2日目"
-    leg: "今治 → 吉野川 → 眉山 → 徳島(びざんの湯)"
     dist_km: 620
     pin: [840, 285]
     map_label: "徳島"
@@ -145,7 +138,6 @@ sections:
   - date: "7/8"
     weekday: "水"
     label: "3日目"
-    leg: "徳島 → 蒲生田岬 → 室戸岬(室戸 大浴場)"
     dist_km: 804
     pin: [835, 470]
     map_label: "室戸"
@@ -211,7 +203,6 @@ sections:
   - date: "7/9"
     weekday: "木"
     label: "4日目"
-    leg: "室戸 → 久礼 → 四国カルスト → 四万十(松葉川温泉)"
     dist_km: 1096
     pin: [575, 515]
     map_label: "四万十"
@@ -261,7 +252,6 @@ sections:
   - date: "7/10"
     weekday: "金"
     label: "5日目"
-    leg: "四万十 → 土佐清水 → 足摺岬"
     dist_km: 1209
     pin: [470, 610]
     map_label: "足摺"
@@ -315,7 +305,6 @@ sections:
   - date: "7/11"
     weekday: "土"
     label: "6日目"
-    leg: "足摺 → 宇和島 → 伊方(亀ヶ池温泉)"
     dist_km: 1391
     pin: [405, 405]
     map_label: "伊方"
@@ -370,7 +359,6 @@ sections:
   - date: "7/12"
     weekday: "日"
     label: "7日目"
-    leg: "伊方 → 三崎港 →〔国道九四フェリー〕→ 佐賀関 → 別府温泉"
     dist_km: 1461
     pin: [250, 430]
     map_label: "別府"
@@ -430,7 +418,6 @@ sections:
   - date: "7/13"
     weekday: "月"
     label: "8日目"
-    leg: "別府 → 国東半島 → 宇佐 → 中津 → 福津(帰宅)"
     dist_km: 1697
     map_label: "福津"
     items:

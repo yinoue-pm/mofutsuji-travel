@@ -41,10 +41,8 @@ def test_section_and_item_fragments():
     doc = _doc()
     sec = doc.sections[0]
     s = G.render_section(sec, 1)
-    # 章扉に編集見出し（headline）とリード文が出る
-    assert (sec.headline or sec.leg) in s
-    if sec.lede:
-        assert sec.lede in s
+    # 章扉は日付（PDF由来）を見出しに表示
+    assert sec.date in s
     assert 'class="timeline"' in s
 
     item = sec.items[0]

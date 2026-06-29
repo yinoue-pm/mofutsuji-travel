@@ -114,8 +114,8 @@
     <li><a href="#{{ s.slug }}">
       <span class="toc-no num">{{ '%02d'|format(loop.index) }}</span>
       <span class="toc-main">
-        <span class="toc-title">{{ s.headline or s.leg }}</span>
-        <span class="toc-meta"><span class="num">{{ s.date }}</span>（{{ s.weekday }}）{% if s.night and s.night.card %}・{{ s.night.card.name }}{% endif %}</span>
+        <span class="toc-title"><span class="num">{{ s.date }}</span>（{{ s.weekday }}）</span>
+        <span class="toc-meta">{% if s.night and s.night.card %}{{ s.night.card.name }}{% endif %}{% if s.dist_km is not none %} ・ 走行 <span class="num">{{ '{:,}'.format(s.dist_km) }}</span> km{% endif %}</span>
       </span>
     </a></li>
     {% endfor %}
@@ -129,15 +129,12 @@
   <header class="day-hd reveal">
     <div class="day-no num">{{ '%02d'|format(no) }}</div>
     <div class="day-info">
-      <p class="kicker">DAY {{ no }}　<span class="num">{{ sec.date }}</span>（{{ sec.weekday }}）</p>
-      <h2 class="day-title">{{ sec.headline or sec.leg }}</h2>
-      {% if sec.lede %}<p class="day-lede lede">{{ sec.lede }}</p>{% endif %}
+      <p class="kicker">DAY {{ no }}</p>
+      <h2 class="day-title"><span class="num">{{ sec.date }}</span>（{{ sec.weekday }}）</h2>
       <ul class="day-facts">
         {% if sec.dist_km is not none %}<li>{{ icon('drive') }}走行 <span class="num">{{ '{:,}'.format(sec.dist_km) }}</span> km</li>{% endif %}
         {% if sec.night and sec.night.card %}<li class="fact-onsen">{{ icon('onsen') }}{{ sec.night.card.name }}</li>{% endif %}
       </ul>
-      {# headline がある時だけ leg を補足表示（headline 無し時は title=leg なので重複させない） #}
-      {% if sec.leg and sec.headline %}<p class="day-leg">{{ sec.leg }}</p>{% endif %}
     </div>
   </header>
   {% if sec.items %}
