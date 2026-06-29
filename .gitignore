@@ -9,7 +9,8 @@ venv/
 # 生成物（PDF・スクショは重いので追跡しない / HTML は公開のためコミットする）
 dist/*.pdf
 dist/*.png
-dist/assets/        # ビルド時に root の assets/ からコピーされる複製（追跡不要）
+# ビルド時に root の assets/ からコピーされる複製（追跡不要）
+dist/assets/
 
 # OS
 .DS_Store
