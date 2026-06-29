@@ -10,6 +10,7 @@ meta:
   title: "四国の旅"
   subtitle: "2026年7月 ／ 7泊8日"
   period: "2026年7月6日(月) 〜 7月13日(月)"
+  base_url: "https://yinoue-pm.github.io/mofutsuji-travel/"
   route: "福津~呉～今治♨🏨～吉野川~眉山～徳島♨🏨～大浜海岸~室戸岬♨🏨～四万十川♨🏨～高知~足摺岬♨🏨～宇和島♨🏨~佐多岬~別府♨🏨～大隅半島～福津"
   created: "2026年4月22日 (Ver.1.0)"
   # SVG絵地図（手描き風ルート図）の設定。各 section の pin [x,y] を順に結ぶ。
@@ -53,6 +54,7 @@ sections:
         desc: "戦艦「大和」を建造した軍港。設計図や写真、潜水調査水中映像などをもとに、可能な限り詳細に再現した"
         cost: 2300
         cost_label: "観覧料＋駐車場"
+        photo: "assets/d1-yamato.jpg"
       - time: "12:10-13:00"
         type: "meal"
         title: "呉ハイカラ食堂"
@@ -70,6 +72,7 @@ sections:
         rating: 4.2
         card:
           name: "湯ノ浦♨"
+          photos: ["assets/d1-inn-exterior.jpg", "assets/d1-inn-bath.jpg", "assets/d1-inn-room.jpg", "assets/d1-inn-meal.jpg"]
           address: "愛媛県今治市湯ノ浦30番地"
           tel: "0898-47-0707"
           room: "スタンダード洋室【27㎡】"
@@ -111,12 +114,14 @@ sections:
         type: "sight"
         title: "眉山山頂"
         desc: "「眉のごと雲居に見ゆる阿波の山」と万葉集にも詠まれた徳島市のシンボル・眉山（びざん）"
+        photo: "assets/d2-bizan.jpg"
       - time: "17:30"
         type: "lodging"
         title: "ホテルサンルート徳島"
         rating: 4.4
         card:
           name: "びざんの♨"
+          photos: ["assets/d2-hotel-exterior.jpg", "assets/d2-hotel-bath.jpg", "assets/d2-hotel-room.jpg"]
           address: "徳島県徳島市元町1-5-1"
           tel: "088-653-8111"
           room: "【East館禁煙】モデレートツイン"
@@ -133,6 +138,7 @@ sections:
         desc: "県外から地鶏、河内鴨を取り寄せ、大きめに切り分けている為、食べ応えがある"
         cost: 10000
         cost_label: "夕飯"
+        photo: "assets/d2-ponzu.jpg"
 
   # ---------------------------------------------------------------- 3日目
   - date: "7/8"

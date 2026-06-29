@@ -7,6 +7,14 @@
 <meta name="color-scheme" content="light">
 <meta name="description" content="{{ doc.meta.title }}{% if doc.meta.subtitle %} — {{ doc.meta.subtitle }}{% endif %}">
 <title>{{ doc.meta.title }}{% if doc.meta.subtitle %} | {{ doc.meta.subtitle }}{% endif %}</title>
+{# OGP / Twitter（SNSシェア時のプレビュー）。本文に出ないメタ情報 #}
+{%- set og_desc = (doc.meta.subtitle ~ ' / ' if doc.meta.subtitle else '') ~ (doc.meta.period or '') -%}
+<meta property="og:type" content="website">
+<meta property="og:title" content="{{ doc.meta.title }}">
+<meta property="og:description" content="{{ og_desc }}">
+<meta name="twitter:card" content="{{ 'summary_large_image' if doc.meta.hero_photo else 'summary' }}">
+{% if doc.meta.base_url %}<meta property="og:url" content="{{ doc.meta.base_url }}">{% endif %}
+{% if doc.meta.base_url and doc.meta.hero_photo %}<meta property="og:image" content="{{ doc.meta.base_url.rstrip('/') }}/{{ doc.meta.hero_photo }}">{% endif %}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="{{ font_css_url }}">
@@ -179,6 +187,14 @@ a:hover { text-decoration: underline; }
 .item-photo img, .card-photo img { width: 100%; height: 100%; object-fit: cover;
   filter: grayscale(1) contrast(1.05); mix-blend-mode: luminosity; opacity: .92; }
 .item-photo figcaption, .card-photo figcaption { font-size: 11px; color: var(--ink-soft); padding: 4px 2px 0; }
+/* 宿の写真ギャラリー（複数枚をデュオトーンで揃えて並べる＝宿の見開き感） */
+.card-gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; margin-bottom: 12px; }
+@media (min-width: 560px) { .card-gallery[data-count="3"] { grid-template-columns: repeat(3, 1fr); }
+  .card-gallery[data-count="4"] { grid-template-columns: repeat(4, 1fr); } }
+.card-gallery figure { margin: 0; aspect-ratio: 4 / 3; border-radius: 8px; overflow: hidden;
+  border: 1px solid var(--line); background: var(--accent); }
+.card-gallery img { width: 100%; height: 100%; object-fit: cover;
+  filter: grayscale(1) contrast(1.05); mix-blend-mode: luminosity; opacity: .92; }
 
 /* 強調アイテム（カード付き / 高評価） */
 .item.is-highlight > .item-body { background: var(--surface); border: 1px solid var(--line);
@@ -227,8 +243,9 @@ a:hover { text-decoration: underline; }
 .summary-total strong { font-family: var(--font-head); font-size: 24px; color: var(--accent-2); }
 .summary-note { margin: 6px 0 16px; font-size: 12px; color: var(--ink-soft); }
 .bars { display: grid; gap: 11px; margin-top: 10px; }
-.bar-row { display: grid; grid-template-columns: 78px 1fr auto; gap: 10px; align-items: center; }
-.bar-label { font-size: 13px; font-weight: 700; }
+.bar-row { display: grid; grid-template-columns: 96px 1fr auto; gap: 10px; align-items: center; }
+.bar-label { display: flex; align-items: center; gap: 5px; font-size: 13px; font-weight: 700; }
+.bar-label .ico { color: var(--accent-2); }
 .bar-track { background: var(--bg-soft); border-radius: 999px; height: 16px; overflow: hidden; border: 1px solid var(--line); }
 .bar-fill { height: 100%; width: 0; border-radius: 999px;
   background: linear-gradient(90deg, var(--grad-from), var(--grad-to)); transition: width .9s cubic-bezier(.2,.7,.2,1); }

@@ -110,8 +110,33 @@ def _slugify(text: str) -> str:
     return s or "doc"
 
 
+def _photo_exists(path: Optional[str]) -> bool:
+    """写真パスがリポジトリ直下から見て実在するか（相対パスのみ対象）。"""
+    if not path:
+        return False
+    if path.startswith(("http://", "https://", "data:")):
+        return True
+    return (ROOT / path).exists()
+
+
+def resolve_photos(doc: Document) -> None:
+    """存在しない写真参照を None 化（壊れ画像を出さない）。in-place で更新。"""
+    if not _photo_exists(doc.meta.hero_photo):
+        doc.meta.hero_photo = None
+    for sec in doc.sections:
+        for it in sec.items:
+            if not _photo_exists(it.photo):
+                it.photo = None
+            if it.card:
+                if not _photo_exists(it.card.photo):
+                    it.card.photo = None
+                if it.card.photos:
+                    it.card.photos = [p for p in it.card.photos if _photo_exists(p)] or None
+
+
 def render_document(doc: Document) -> str:
     """単一 HTML（CSS/JS インライン）を文字列で返す。"""
+    resolve_photos(doc)
     env = build_env()
     tmpl = env.get_template("base.html.j2")
     return tmpl.render(

@@ -17,8 +17,11 @@ def _doc():
 
 def test_full_document_self_contained():
     html = G.render_document(_doc())
-    # 自己完結性
-    assert "<img" not in html, "画像は使用しない方針"
+    # 自己完結性：CSS/JS はインライン、外部画像のハードリンクは無い（写真は assets/ 相対のみ）
+    assert "<style>" in html and "<script>" in html
+    import re
+    for src in re.findall(r'<img[^>]+src="([^"]+)"', html):
+        assert not src.startswith(("http://", "https://")), f"外部画像リンクは不可: {src}"
     assert "color-scheme: light" in html
     assert "print-color-adjust: exact" in html
     # 主要セクション

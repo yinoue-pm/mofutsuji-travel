@@ -53,7 +53,8 @@ class LodgingCard:
     price: Optional[int] = None
     discount: Optional[int] = None      # 負数（割引）
     discount_label: Optional[str] = None
-    photo: Optional[str] = None         # 任意: 宿の写真パス
+    photo: Optional[str] = None         # 任意: 宿の写真パス（単一）
+    photos: Optional[List[str]] = None  # 任意: 宿の写真ギャラリー（複数）
 
     @property
     def net_price(self) -> Optional[int]:
@@ -138,6 +139,7 @@ class Meta:
     created: Optional[str] = None
     lede: Optional[str] = None              # ヒーローのリード文
     hero_photo: Optional[str] = None        # 任意: ヒーロー背景の写真パス（無ければ和の意匠）
+    base_url: Optional[str] = None          # 任意: 公開URL（OGPの og:url / og:image 絶対化に使用）
     map: Optional[Dict[str, Any]] = None    # SVGルート図の設定（w/h/start/labels）
 
 
@@ -201,6 +203,7 @@ def parse_document(raw: Dict[str, Any]) -> Document:
         created=raw_meta.get("created"),
         lede=raw_meta.get("lede"),
         hero_photo=raw_meta.get("hero_photo"),
+        base_url=raw_meta.get("base_url"),
         map=raw_meta.get("map") if isinstance(raw_meta.get("map"), dict) else None,
     )
 
@@ -255,6 +258,7 @@ def parse_document(raw: Dict[str, Any]) -> Document:
                     discount=_as_int(rc.get("discount"), f"{where}.card.discount", errors),
                     discount_label=rc.get("discount_label"),
                     photo=rc.get("photo"),
+                    photos=rc.get("photos") if isinstance(rc.get("photos"), list) else None,
                 )
             items.append(
                 Item(

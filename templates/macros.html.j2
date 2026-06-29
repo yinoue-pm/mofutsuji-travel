@@ -199,7 +199,11 @@
 {# ---- 強調カード（宿泊：泉質・効能・価格・割引・連絡先） ---- #}
 {% macro lodging_card(card) -%}
 <div class="card">
-  {% if card.photo %}
+  {% if card.photos %}
+  <div class="card-gallery" data-count="{{ card.photos|length }}">
+    {% for ph in card.photos %}<figure><img src="{{ ph }}" alt="{{ card.name }}" loading="lazy" decoding="async"></figure>{% endfor %}
+  </div>
+  {% elif card.photo %}
   <figure class="card-photo"><img src="{{ card.photo }}" alt="{{ card.name }}" loading="lazy" decoding="async"></figure>
   {% endif %}
   <div class="card-top">
@@ -226,6 +230,7 @@
 {# ---- 集計（横棒グラフ）。負数（割引）は別色 ---- #}
 {% macro cost_summary(summary) -%}
 {%- set maxabs = summary.breakdown | map(attribute='amount') | map('abs') | max -%}
+{%- set costicons = {'ホテル代':'lodging','宿泊料':'lodging','食事代':'meal','交通費':'drive','高速料':'drive','フェリー代':'ferry','入場料':'sight','観覧料':'sight','割引':'yen'} -%}
 <section class="summary reveal" id="summary" aria-label="費用集計">
   <div class="summary-head">
     <div><p class="kicker">BUDGET</p><h2>費用集計</h2></div>
@@ -236,7 +241,7 @@
     {% for row in summary.breakdown %}
     {%- set pct = (row.amount | abs) / maxabs * 100 if maxabs else 0 -%}
     <div class="bar-row {{ 'is-minus' if row.amount < 0 else '' }}">
-      <div class="bar-label">{{ row.label }}</div>
+      <div class="bar-label">{{ icon(costicons.get(row.label, 'yen')) }}{{ row.label }}</div>
       <div class="bar-track">
         <div class="bar-fill" style="--w: {{ '%.1f'|format(pct) }}%"></div>
       </div>

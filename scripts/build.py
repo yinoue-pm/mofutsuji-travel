@@ -47,6 +47,13 @@ def main() -> int:
     size_kb = len(html.encode("utf-8")) / 1024
     print(f"✓ HTML 生成: {out}  ({size_kb:.1f} KB)")
 
+    # 出力先が ROOT 以外なら assets/ を隣にコピー（相対パス参照を成立させる：dist/・_site/ 用）
+    import shutil
+    assets = ROOT / "assets"
+    if assets.is_dir() and out.parent.resolve() != ROOT.resolve():
+        shutil.copytree(assets, out.parent / "assets", dirs_exist_ok=True)
+        print(f"✓ assets コピー: {out.parent / 'assets'}")
+
     if args.root:
         root_index = ROOT / "index.html"
         root_index.write_text(html, encoding="utf-8")
