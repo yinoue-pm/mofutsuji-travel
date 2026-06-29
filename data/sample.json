@@ -1,0 +1,36 @@
+{
+  "meta": {
+    "title": "日帰り研修ガイド",
+    "subtitle": "JSON 入力でも同じ仕組みで生成できます",
+    "period": "2026年9月1日(火)",
+    "route": "本社 → 工場見学 → ランチ → ワークショップ → 解散"
+  },
+  "theme": "ocean",
+  "hero_stats": [
+    { "label": "所要", "value": "1", "unit": "日", "icon": "calendar" },
+    { "label": "会場", "value": "3", "unit": "箇所", "icon": "pin" },
+    { "label": "費用", "value": "5,000", "unit": "円", "icon": "yen" }
+  ],
+  "sections": [
+    {
+      "label": "当日",
+      "date": "9/1",
+      "weekday": "火",
+      "leg": "本社集合 → 解散",
+      "items": [
+        { "time": "9:00", "type": "drive", "title": "本社 集合・出発", "desc": "受付後、バスで移動。" },
+        { "time": "10:00-11:30", "type": "sight", "title": "工場見学", "desc": "製造ラインを見学。", "cost": 0, "cost_label": "無料" },
+        { "time": "12:00-13:00", "type": "meal", "title": "ランチ", "rating": 3.6, "desc": "地元食材のビュッフェ。", "cost": 2000, "cost_label": "昼食" },
+        { "time": "14:00-16:00", "type": "sight", "title": "ワークショップ", "desc": "グループ演習と発表。", "cost": 3000, "cost_label": "教材費" }
+      ]
+    }
+  ],
+  "summary": {
+    "total": 5000,
+    "note": "概算（交通費別）",
+    "breakdown": [
+      { "label": "昼食", "amount": 2000 },
+      { "label": "教材費", "amount": 3000 }
+    ]
+  }
+}
