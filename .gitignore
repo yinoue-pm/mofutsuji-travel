@@ -1,0 +1,14 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+*.egg-info/
+
+# 生成物（PDF は重いので追跡しない / HTML は公開のためコミットする）
+dist/*.pdf
+
+# OS
+.DS_Store
+Thumbs.db

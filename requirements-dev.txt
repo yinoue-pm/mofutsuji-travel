@@ -1,0 +1,4 @@
+-r requirements.txt
+# PDF 生成 & テスト
+playwright>=1.40
+pytest>=7.4
