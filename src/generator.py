@@ -86,8 +86,8 @@ def render_hero(doc: Document) -> str:
     return str(_macros().hero(doc))
 
 
-def render_section(section: Section) -> str:
-    return str(_macros().section(section))
+def render_section(section: Section, no: int = 1) -> str:
+    return str(_macros().section(section, no))
 
 
 def render_item(item: Item, sec_slug: str = "day-x", idx: int = 0) -> str:

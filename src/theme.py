@@ -11,33 +11,64 @@ from __future__ import annotations
 
 from typing import Dict
 
-# Google Fonts CDN（本文=Noto Sans JP / 見出し=Zen Maru Gothic）。
+# Google Fonts CDN
+#   本文 = Noto Sans JP / 見出し = Shippori Mincho（しっぽり明朝・誌面感）
+#   数字 = Playfair Display（時刻・距離・金額をセリフ数字で“雑誌”っぽく）
 # 読み込めない環境ではシステムフォントへ自動フォールバック（base CSS 側で指定）。
 FONT_CSS_URL = (
     "https://fonts.googleapis.com/css2?"
-    "family=Noto+Sans+JP:wght@400;500;700&family=Zen+Maru+Gothic:wght@500;700&display=swap"
+    "family=Noto+Sans+JP:wght@400;500;700"
+    "&family=Shippori+Mincho:wght@500;600;700;800"
+    "&family=Zen+Maru+Gothic:wght@500;700"
+    "&family=Playfair+Display:wght@500;600;700"
+    "&display=swap"
 )
 
 SYSTEM_SANS = (
     '-apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN", '
     '"Hiragino Sans", "Yu Gothic", Meiryo, sans-serif'
 )
+SYSTEM_SERIF = (
+    '"Hiragino Mincho ProN", "Yu Mincho", "YuMincho", "MS PMincho", serif'
+)
 
 # テーマトークン。キー名は CSS 変数名（先頭の `--` は付けない）。
 THEMES: Dict[str, Dict[str, str]] = {
+    # 温泉旅雑誌：生成りの紙 × 藍 × 朱（明朝見出し）。写真ゼロでも“誌面”に見せる本命テーマ。
+    "tabibook": {
+        "font-head": f'"Shippori Mincho", {SYSTEM_SERIF}',
+        "font-body": f'"Noto Sans JP", {SYSTEM_SANS}',
+        "font-num": f'"Playfair Display", "Shippori Mincho", {SYSTEM_SERIF}',
+        "bg": "#faf7f2",          # 生成りの紙
+        "bg-soft": "#f3ede3",
+        "surface": "#ffffff",     # カードだけ純白で“浮かせる”
+        "ink": "#23201c",         # 黒すぎない墨色
+        "ink-soft": "#6b6357",
+        "line": "#e7dfd2",        # 暖色のけい線
+        "accent": "#1f3a5f",      # 藍（メイン）
+        "accent-soft": "#eaf0f6",
+        "accent-2": "#b5462f",    # 朱（差し色・温泉/見どころ）
+        "accent-2-soft": "#f8ece8",
+        "gold": "#b08d57",        # 金のヘアライン
+        "grad-from": "#1f3a5f",
+        "grad-to": "#2c577f",
+        "ok": "#3f7d5a",
+        "shadow": "0 10px 30px rgba(35,32,28,.08)",
+    },
     # 温泉旅：白基調＋ぬくもりのある朱・藍
     "onsen": {
         "font-head": f'"Zen Maru Gothic", {SYSTEM_SANS}',
         "font-body": f'"Noto Sans JP", {SYSTEM_SANS}',
+        "font-num": f'"Playfair Display", {SYSTEM_SANS}',
         "bg": "#ffffff",
         "bg-soft": "#f7f4ef",
         "surface": "#ffffff",
         "ink": "#1f2430",
         "ink-soft": "#5b6373",
         "line": "#e7e1d8",
-        "accent": "#c0392b",       # 朱
+        "accent": "#c0392b",
         "accent-soft": "#fdecea",
-        "accent-2": "#1b6ca8",     # 藍
+        "accent-2": "#1b6ca8",
         "accent-2-soft": "#e8f1f8",
         "gold": "#b8860b",
         "grad-from": "#c0392b",
@@ -49,6 +80,7 @@ THEMES: Dict[str, Dict[str, str]] = {
     "ocean": {
         "font-head": f'"Zen Maru Gothic", {SYSTEM_SANS}',
         "font-body": f'"Noto Sans JP", {SYSTEM_SANS}',
+        "font-num": f'"Playfair Display", {SYSTEM_SANS}',
         "bg": "#ffffff",
         "bg-soft": "#f1f6fa",
         "surface": "#ffffff",
@@ -69,6 +101,7 @@ THEMES: Dict[str, Dict[str, str]] = {
     "mono": {
         "font-head": f'"Zen Maru Gothic", {SYSTEM_SANS}',
         "font-body": f'"Noto Sans JP", {SYSTEM_SANS}',
+        "font-num": f'"Playfair Display", {SYSTEM_SANS}',
         "bg": "#ffffff",
         "bg-soft": "#f4f4f5",
         "surface": "#ffffff",
@@ -87,7 +120,7 @@ THEMES: Dict[str, Dict[str, str]] = {
     },
 }
 
-DEFAULT_THEME = "onsen"
+DEFAULT_THEME = "tabibook"
 
 
 def get_theme(key: str) -> Dict[str, str]:

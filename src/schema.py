@@ -85,7 +85,19 @@ class Section:
     weekday: Optional[str] = None
     leg: Optional[str] = None
     dist_km: Optional[int] = None
+    headline: Optional[str] = None      # 編集見出し（その日のタイトル）
+    lede: Optional[str] = None          # 編集リード文（その日の一言）
+    pin: Optional[List[float]] = None   # ルート図の座標 [x, y]
+    map_label: Optional[str] = None     # ルート図のノード名（例: 今治）
     items: List[Item] = field(default_factory=list)
+
+    @property
+    def night(self) -> Optional["Item"]:
+        """その日の宿泊（カード付きアイテム）。なければ None。"""
+        for it in self.items:
+            if it.card is not None:
+                return it
+        return None
 
     @property
     def slug(self) -> str:
@@ -121,6 +133,8 @@ class Meta:
     period: Optional[str] = None
     route: Optional[str] = None
     created: Optional[str] = None
+    lede: Optional[str] = None              # ヒーローのリード文
+    map: Optional[Dict[str, Any]] = None    # SVGルート図の設定（w/h/start/labels）
 
 
 @dataclass
@@ -181,6 +195,8 @@ def parse_document(raw: Dict[str, Any]) -> Document:
         period=raw_meta.get("period"),
         route=raw_meta.get("route"),
         created=raw_meta.get("created"),
+        lede=raw_meta.get("lede"),
+        map=raw_meta.get("map") if isinstance(raw_meta.get("map"), dict) else None,
     )
 
     # ---- hero_stats（任意） ----
@@ -249,6 +265,10 @@ def parse_document(raw: Dict[str, Any]) -> Document:
         if not items:
             # 空セクションは警告レベル：除外せず残すが、テンプレートで「予定なし」表示
             errors.append(f"sections[{si}]（{rs.get('label')}）: items が空です")
+        pin = rs.get("pin")
+        if pin is not None and (not isinstance(pin, (list, tuple)) or len(pin) != 2):
+            errors.append(f"sections[{si}].pin は [x, y] の2要素である必要があります")
+            pin = None
         sections.append(
             Section(
                 label=str(rs.get("label", f"#{si + 1}")),
@@ -256,6 +276,10 @@ def parse_document(raw: Dict[str, Any]) -> Document:
                 weekday=rs.get("weekday"),
                 leg=rs.get("leg"),
                 dist_km=_as_int(rs.get("dist_km"), f"sections[{si}].dist_km", errors),
+                headline=rs.get("headline"),
+                lede=rs.get("lede"),
+                pin=[float(pin[0]), float(pin[1])] if pin else None,
+                map_label=rs.get("map_label"),
                 items=items,
             )
         )

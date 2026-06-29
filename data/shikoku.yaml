@@ -15,10 +15,21 @@ meta:
   title: "四国の旅"
   subtitle: "7泊8日 ぐるり♨温泉巡り"
   period: "2026年7月6日(月) 〜 7月13日(月)"
+  lede: "福津を起点に、瀬戸内と四国・九州をぐるりと結ぶ7泊8日。七つのいで湯と、海と山の絶景をたどるロードトリップ。"
   route: "福津〜呉〜今治♨〜吉野川〜眉山〜徳島♨〜大浜海岸〜室戸岬♨〜四万十川♨〜高知〜足摺岬♨〜宇和島♨〜佐田岬〜別府♨〜大隅半島〜福津"
   created: "2026年4月22日 (Ver.1.0)"
+  # SVG絵地図（手描き風ルート図）の設定。各 section の pin [x,y] を順に結ぶ。
+  map:
+    w: 1000
+    h: 680
+    start: { x: 170, y: 250, label: "福津（発着）" }
+    labels:
+      - { x: 505, y: 150, text: "瀬戸内海" }
+      - { x: 690, y: 415, text: "四国" }
+      - { x: 150, y: 520, text: "九州" }
+      - { x: 660, y: 645, text: "太平洋" }
 
-theme: "onsen"
+theme: "tabibook"
 
 hero_stats:
   - { label: "日程",   value: "7泊8日",    icon: "calendar" }
@@ -33,6 +44,10 @@ sections:
     label: "1日目"
     leg: "自宅 → 呉 → しまなみ海道 → 今治(湯ノ浦温泉)"
     dist_km: 441
+    headline: "軍港の記憶から、多島美のしまなみへ"
+    lede: "戦艦大和の故郷・呉をたどり、瀬戸内の島々を渡って湯ノ浦のいで湯へ。"
+    pin: [560, 290]
+    map_label: "今治"
     items:
       - time: "6:00"
         type: "meal"
@@ -88,6 +103,10 @@ sections:
     label: "2日目"
     leg: "今治 → 吉野川 → 眉山 → 徳島(びざんの湯)"
     dist_km: 620
+    headline: "阿波の山河、うだつの町をゆく"
+    lede: "讃岐うどんで腹ごしらえ、うだつの町並みを抜けて眉山の夕景へ。"
+    pin: [840, 285]
+    map_label: "徳島"
     items:
       - time: "9:30"
         type: "lodging"
@@ -142,6 +161,10 @@ sections:
     label: "3日目"
     leg: "徳島 → 蒲生田岬 → 室戸岬(室戸温泉)"
     dist_km: 804
+    headline: "四国の東をめぐり、太平洋の岬へ"
+    lede: "最東端・蒲生田岬からウミガメの浜を経て、黒潮きらめく室戸岬を望む。"
+    pin: [835, 470]
+    map_label: "室戸"
     items:
       - time: "7:30-8:00"
         type: "meal"
@@ -208,6 +231,10 @@ sections:
     label: "4日目"
     leg: "室戸 → 久礼 → 四国カルスト → 四万十(松葉川温泉)"
     dist_km: 1096
+    headline: "鰹の港から、天空のカルストへ"
+    lede: "久礼で初鰹を頬張り、四国カルストの天空の道を駆けて松葉川の湯へ。"
+    pin: [575, 515]
+    map_label: "四万十"
     items:
       - time: "7:00"
         type: "lodging"
@@ -253,6 +280,10 @@ sections:
     label: "5日目"
     leg: "四万十 → 土佐清水 → 足摺岬"
     dist_km: 1209
+    headline: "黒潮が最初にふれる、最南端の岬"
+    lede: "ジョン万次郎の足跡をたどり、四国最南端・足摺岬で水平線に陽が沈む。"
+    pin: [470, 610]
+    map_label: "足摺"
     items:
       - time: "9:30"
         type: "lodging"
@@ -302,6 +333,10 @@ sections:
     label: "6日目"
     leg: "足摺 → 宇和島 → 伊方(亀ヶ池温泉)"
     dist_km: 1391
+    headline: "城下町をめぐり、佐田岬のつけ根へ"
+    lede: "宇和島城を仰ぎ、十割そばと太刀魚巻に舌鼓。岬の温泉宿でくつろぐ。"
+    pin: [405, 405]
+    map_label: "伊方"
     items:
       - time: "9:30"
         type: "lodging"
@@ -352,6 +387,10 @@ sections:
     label: "7日目"
     leg: "伊方 → 三崎港 →〔国道九四フェリー〕→ 佐賀関 → 別府温泉"
     dist_km: 1461
+    headline: "海峡を越えて、湯けむりの別府へ"
+    lede: "佐田岬から九四フェリーで九州へ。とり天に満たされ、別府の湯に浸る。"
+    pin: [250, 430]
+    map_label: "別府"
     items:
       - time: "9:00"
         type: "lodging"
@@ -403,6 +442,9 @@ sections:
     label: "8日目"
     leg: "別府 → 国東半島 → 宇佐 → 中津 → 福津(帰宅)"
     dist_km: 1697
+    headline: "国東の祈りをたどり、家路につく"
+    lede: "宇佐神宮に詣で、青の洞門と諭吉の旧居を訪ねて福津へ帰る。"
+    map_label: "福津"
     items:
       - time: "9:30"
         type: "lodging"
