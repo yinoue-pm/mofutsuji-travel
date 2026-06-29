@@ -6,8 +6,9 @@ venv/
 .pytest_cache/
 *.egg-info/
 
-# 生成物（PDF は重いので追跡しない / HTML は公開のためコミットする）
+# 生成物（PDF・スクショは重いので追跡しない / HTML は公開のためコミットする）
 dist/*.pdf
+dist/*.png
 
 # OS
 .DS_Store
