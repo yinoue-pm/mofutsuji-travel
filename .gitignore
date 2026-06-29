@@ -15,3 +15,6 @@ dist/assets/
 # OS
 .DS_Store
 Thumbs.db
+
+# 画像取り込み用の一時退避（追跡不要）
+.stage/

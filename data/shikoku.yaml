@@ -16,6 +16,7 @@ meta:
   # SVG絵地図（手描き風ルート図）の設定。各 section の pin [x,y] を順に結ぶ。
   # 座標はデザイン用（地理的配置）。ノード名(map_label)はPDF記載の宿泊地。
   map:
+    image: "assets/route-map.jpg"   # 実際のルート地図（あればSVG絵地図より優先）
     w: 1000
     h: 680
     start: { x: 170, y: 250, label: "福津（発着）" }
@@ -163,6 +164,7 @@ sections:
         type: "sight"
         title: "蒲生田岬（四国最東端）"
         desc: "シンボルである灯台からの景色はまさに絶景。晴れた日は海を挟んだ和歌山県まで見渡せることもある"
+        photo: "assets/d3-kamoda.jpg"
       - time: "11:30-12:00"
         type: "sight"
         title: "大浜海岸 美波町"
@@ -191,12 +193,14 @@ sections:
         desc: "オーシャンビューの開放的な店内で、室戸沖の大海原を眺めながら鯨料理を味わえる（L.O. 18:30）"
         cost: 5000
         cost_label: "夕飯"
+        photo: "assets/d3-meal.jpg"
       - time: "19:15"
         type: "lodging"
         title: "ニューサンパレスむろと"
         rating: 4.1
         card:
           name: "大浴場♨"
+          photos: ["assets/d3-inn-exterior.jpg", "assets/d3-inn-bath.jpg", "assets/d3-inn-room.jpg"]
           address: "室戸市領家235-1"
           tel: "0887-22-0012"
           room: "海と夕日が見えるフローリングタイプ（布団式）　現地払い"
@@ -230,6 +234,7 @@ sections:
         desc: "高知で鰹を食べるならここ！　初鰹の旬は春4月〜7月ごろ"
         cost: 5000
         cost_label: "昼飯"
+        photo: "assets/d4-kure.jpg"
       - time: "13:30-14:00"
         type: "sight"
         title: "天狗高原〜大野ヶ原育成牧場"
@@ -240,6 +245,7 @@ sections:
         rating: 4.4
         card:
           name: "松葉川♨"
+          photos: ["assets/d4-inn-exterior.jpg", "assets/d4-inn-bath.jpg", "assets/d4-inn-room.jpg", "assets/d4-inn-meal.jpg"]
           address: "高知県高岡郡四万十町日野地605-1"
           tel: "0880-23-0611"
           room: "川側 和室８畳　現地払い"
@@ -281,6 +287,7 @@ sections:
         desc: "漂流からアメリカ暮らし、帰国してから近代日本の夜明けのために活躍した万次郎の数奇な生涯を学習できる"
         cost: 880
         cost_label: "入館料"
+        photo: "assets/d5-manjiro.jpg"
       - time: "14:10-15:50"
         type: "sight"
         title: "足摺岬展望台"
@@ -293,6 +300,7 @@ sections:
         rating: 4.7
         card:
           name: "あしずり♨"
+          photos: ["assets/d5-inn-exterior.jpg", "assets/d5-inn-bath.jpg", "assets/d5-inn-room.jpg", "assets/d5-inn-meal.jpg"]
           address: "高知県土佐清水市足摺岬662"
           tel: "0880-88-0201"
           room: "【海側コンパクトルーム】〔和室8畳〕　現地払い"
@@ -334,6 +342,7 @@ sections:
         desc: "標高80mの丘上に築かれた平山城で藤堂高虎の築城による。伊達氏2代宗利が大改修し現在の形となる"
         cost: 500
         cost_label: "天守入場料＋駐車場"
+        photo: "assets/d6-uwajima.jpg"
       - time: "14:50-15:00"
         type: "meal"
         title: "河合太刀魚巻店（創業150年の老舗）"
@@ -347,6 +356,7 @@ sections:
         rating: 4.6
         card:
           name: "伊方亀ヶ池♨"
+          photos: ["assets/d6-inn-exterior.jpg", "assets/d6-inn-bath.jpg", "assets/d6-inn-room.jpg", "assets/d6-inn-meal.jpg"]
           address: "愛媛県西宇和郡伊方町二見甲1289番地"
           tel: "0894-39-1160"
           room: "和室【天海】14.4㎡"
@@ -406,6 +416,7 @@ sections:
         rating: 4.1
         card:
           name: "別府♨"
+          photos: ["assets/d7-inn-exterior.jpg", "assets/d7-inn-bath.jpg", "assets/d7-inn-room.jpg", "assets/d7-inn-meal.jpg", "assets/d7-yukemuri.jpg"]
           address: "大分県別府市青山町5-73"
           tel: "0977-23-4281"
           room: "和室6畳"

@@ -123,6 +123,8 @@ def resolve_photos(doc: Document) -> None:
     """存在しない写真参照を None 化（壊れ画像を出さない）。in-place で更新。"""
     if not _photo_exists(doc.meta.hero_photo):
         doc.meta.hero_photo = None
+    if doc.meta.map and doc.meta.map.get("image") and not _photo_exists(doc.meta.map["image"]):
+        doc.meta.map.pop("image", None)
     for sec in doc.sections:
         for it in sec.items:
             if not _photo_exists(it.photo):

@@ -96,19 +96,20 @@
     <h2>旅のルート</h2>
   </div>
   <div class="rm-stage">
+    {% if mp.image %}
+    <figure class="rm-img"><img src="{{ mp.image }}" alt="{{ doc.meta.route or '旅のルート図' }}" loading="lazy" decoding="async"></figure>
+    {% else %}
     <svg viewBox="0 0 {{ mp.w or 1000 }} {{ mp.h or 680 }}" role="img"
          aria-label="{{ doc.meta.route or '旅のルート図' }}" preserveAspectRatio="xMidYMid meet">
       {% for l in mp.labels or [] %}
       <text class="rm-region" x="{{ l.x }}" y="{{ l.y }}">{{ l.text }}</text>
       {% endfor %}
       <path class="rm-route" d="{{ ns.d }}"/>
-      {# 発着地（福津） #}
       <g class="rm-node rm-start" transform="translate({{ s.x }},{{ s.y }})">
         <circle class="rm-pin-start" r="15"/>
         <path class="rm-home" d="M-6 2 L0 -6 L6 2 M-4 1 L-4 6 L4 6 L4 1"/>
         <text class="rm-label" y="34">{{ s.label }}</text>
       </g>
-      {# 宿泊地（温泉＝朱の番号ノード） #}
       {% for sec in pinned %}
       <g class="rm-node" transform="translate({{ sec.pin[0] }},{{ sec.pin[1] }})">
         <circle class="rm-dot" r="17"/>
@@ -117,6 +118,7 @@
       </g>
       {% endfor %}
     </svg>
+    {% endif %}
   </div>
   <p class="rm-cap">総走行 <span class="num">{{ '{:,}'.format(doc.sections[-1].dist_km) }}</span> km ・ {{ doc.lodging_count }}泊{{ doc.sections|length }}日 ・ いで湯 <span class="num">{{ doc.lodging_count }}</span> 湯</p>
 </section>

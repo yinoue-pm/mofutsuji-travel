@@ -73,8 +73,7 @@ a:hover { text-decoration: underline; }
 /* ヒーロー写真（任意）。無ければ出さない。控えめなデュオトーンで誌面に馴染ませる */
 .hero-photo { aspect-ratio: 16 / 7; margin: 0 0 20px; border-radius: 12px; overflow: hidden;
   border: 1px solid var(--line); background: var(--accent); }
-.hero-photo img { width: 100%; height: 100%; object-fit: cover;
-  filter: grayscale(.35) sepia(.12) contrast(1.04); }
+.hero-photo img { width: 100%; height: 100%; object-fit: cover; filter: saturate(.98) contrast(1.02); }
 /* 青海波（せいがいは）の意匠：写真ゼロでも誌面感を出す和のあしらい（線画＝印刷でも綺麗） */
 .hero-seigaiha { color: var(--accent); opacity: .24; margin: 24px -4px -12px; line-height: 0; }
 .hero-seigaiha svg { display: block; width: 100%; height: 30px; }
@@ -112,6 +111,8 @@ a:hover { text-decoration: underline; }
 .rm-head h2 { font-family: var(--font-head); margin: 0; font-size: 22px; color: var(--accent); }
 .rm-stage { width: 100%; }
 .rm-stage svg { width: 100%; height: auto; display: block; }
+.rm-img { margin: 0; border-radius: 12px; overflow: hidden; border: 1px solid var(--line); background: var(--bg-soft); }
+.rm-img img { display: block; width: 100%; height: auto; }
 .rm-route { fill: none; stroke: var(--gold); stroke-width: 3; stroke-dasharray: 2 11;
   stroke-linecap: round; stroke-linejoin: round; opacity: .9; }
 .rm-region { fill: var(--ink-soft); opacity: .42; font-family: var(--font-head); font-size: 26px;
@@ -185,7 +186,7 @@ a:hover { text-decoration: underline; }
 .item-photo { aspect-ratio: 16 / 9; }
 .card-photo { aspect-ratio: 3 / 2; margin-bottom: 12px; }
 .item-photo img, .card-photo img { width: 100%; height: 100%; object-fit: cover;
-  filter: grayscale(1) contrast(1.05); mix-blend-mode: luminosity; opacity: .92; }
+  filter: saturate(.98) contrast(1.02); }
 .item-photo figcaption, .card-photo figcaption { font-size: 11px; color: var(--ink-soft); padding: 4px 2px 0; }
 /* 宿の写真ギャラリー（複数枚をデュオトーンで揃えて並べる＝宿の見開き感） */
 .card-gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; margin-bottom: 12px; }
@@ -194,7 +195,7 @@ a:hover { text-decoration: underline; }
 .card-gallery figure { margin: 0; aspect-ratio: 4 / 3; border-radius: 8px; overflow: hidden;
   border: 1px solid var(--line); background: var(--accent); }
 .card-gallery img { width: 100%; height: 100%; object-fit: cover;
-  filter: grayscale(1) contrast(1.05); mix-blend-mode: luminosity; opacity: .92; }
+  filter: saturate(.98) contrast(1.02); }
 
 /* 強調アイテム（カード付き / 高評価） */
 .item.is-highlight > .item-body { background: var(--surface); border: 1px solid var(--line);
