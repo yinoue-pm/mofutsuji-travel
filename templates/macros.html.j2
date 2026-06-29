@@ -136,7 +136,8 @@
         {% if sec.dist_km is not none %}<li>{{ icon('drive') }}走行 <span class="num">{{ '{:,}'.format(sec.dist_km) }}</span> km</li>{% endif %}
         {% if sec.night and sec.night.card %}<li class="fact-onsen">{{ icon('onsen') }}{{ sec.night.card.name }}</li>{% endif %}
       </ul>
-      {% if sec.leg %}<p class="day-leg">{{ sec.leg }}</p>{% endif %}
+      {# headline がある時だけ leg を補足表示（headline 無し時は title=leg なので重複させない） #}
+      {% if sec.leg and sec.headline %}<p class="day-leg">{{ sec.leg }}</p>{% endif %}
     </div>
   </header>
   {% if sec.items %}
