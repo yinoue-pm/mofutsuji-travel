@@ -136,6 +136,8 @@ sections:                   # 必須: 1件以上
         cost: 2300
         cost_label: "観覧料"
         rating: 3.48        # 任意（4.0以上で自動的に強調）
+        photo: "assets/yamato.webp"   # 任意: 写真パス（無ければ枠は出ない）
+        photo_credit: "© 撮影者"      # 任意: クレジット
         card:               # 任意: 宿泊などの強調カード
           name: "湯ノ浦温泉 ♨"     # 必須
           address: "…"
@@ -176,9 +178,24 @@ summary:                    # 任意: 横棒グラフ（total は内訳合計と
 - スクロール出現演出（IntersectionObserver、`prefers-reduced-motion` 尊重）
 - アイテムをタップで「訪問済み」チェック＋ `localStorage` 保存（try/catch でガードし、保存不可環境でもメモリ動作）
 - 目次ジャンプ／ルート概要
+- SVG 絵地図（手描き風ルート図・API 不要）／ヒーローの和の意匠（青海波）
+- 写真スロット（hero・スポット・宿。任意で、無ければ枠を出さない）
 
 **やらなくてよい（今回スコープ外・必要なら追加）**
 - 多言語化・QRコード・ランタイムのテーマ切替 UI（テーマはビルド時に `theme:` で選択）
+
+### 写真を追加する（任意・後追いでOK）
+
+写真ゼロでも成立する設計です。
+
+1. 画像を `assets/` に置く（例 `assets/yamato.webp`）。WebP/JPG/PNG 可。
+2. データで参照するだけ：
+   - スポット: `photo: "assets/yamato.webp"`（任意で `photo_credit:`）
+   - 宿: `card:` 内に `photo: "assets/inn.webp"`
+   - ヒーロー背景: `meta.hero_photo: "assets/cover.webp"`（無ければ青海波の意匠）
+3. 表示は**自動でデュオトーン（藍寄り）に統一**され、寄せ集めの写真でも“作品集”のように揃います。`loading="lazy"` で遅延読込、印刷時はフィルタ解除で鮮明に出力。
+
+> 画像は外部ファイル（`assets/`）になるため「1ファイル完結」は“文字は完結・画像は別ファイル”の形に。GitHub Pages では相対パスでそのまま動きます。
 
 ---
 

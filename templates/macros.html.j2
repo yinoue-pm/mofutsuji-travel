@@ -35,6 +35,9 @@
 {# ---- hero（キッカー→大判明朝タイトル→リード文→統計→ルート） ---- #}
 {% macro hero(doc) -%}
 <header class="hero reveal" id="top">
+  {% if doc.meta.hero_photo %}
+  <div class="hero-photo"><img src="{{ doc.meta.hero_photo }}" alt="" decoding="async"></div>
+  {% endif %}
   <p class="hero-kicker">ROAD TRIP ITINERARY</p>
   <h1 class="hero-title">{{ doc.meta.title }}</h1>
   {% if doc.meta.subtitle %}<p class="hero-sub">{{ doc.meta.subtitle }}</p>{% endif %}
@@ -59,6 +62,22 @@
     <p class="route-body">{{ doc.meta.route }}</p>
   </div>
   {% endif %}
+
+  {# 青海波の意匠（写真ゼロでも映える和のあしらい・印刷でも線画として綺麗） #}
+  <div class="hero-seigaiha" aria-hidden="true">
+    <svg viewBox="0 0 1000 30" preserveAspectRatio="xMidYMax slice">
+      <defs>
+        <pattern id="seigaiha" width="80" height="40" patternUnits="userSpaceOnUse">
+          <g fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="40" cy="40" r="36"/><circle cx="40" cy="40" r="24"/><circle cx="40" cy="40" r="12"/>
+            <circle cx="0" cy="40" r="36"/><circle cx="0" cy="40" r="24"/><circle cx="0" cy="40" r="12"/>
+            <circle cx="80" cy="40" r="36"/><circle cx="80" cy="40" r="24"/><circle cx="80" cy="40" r="12"/>
+          </g>
+        </pattern>
+      </defs>
+      <rect width="1000" height="30" fill="url(#seigaiha)"/>
+    </svg>
+  </div>
 </header>
 {%- endmacro %}
 
@@ -155,6 +174,12 @@
           aria-label="「{{ item.title }}」を訪問済みにする">{{ icon('check') }}</button>
   <div class="item-dot" data-type="{{ item.type }}">{{ icon(item.type) }}</div>
   <div class="item-body">
+    {% if item.photo %}
+    <figure class="item-photo">
+      <img src="{{ item.photo }}" alt="{{ item.title }}" loading="lazy" decoding="async">
+      {% if item.photo_credit %}<figcaption>{{ item.photo_credit }}</figcaption>{% endif %}
+    </figure>
+    {% endif %}
     <div class="item-head">
       {% if item.time %}<span class="item-time num">{{ item.time }}</span>{% endif %}
       <span class="item-title">{{ item.title }}</span>
@@ -174,6 +199,9 @@
 {# ---- 強調カード（宿泊：泉質・効能・価格・割引・連絡先） ---- #}
 {% macro lodging_card(card) -%}
 <div class="card">
+  {% if card.photo %}
+  <figure class="card-photo"><img src="{{ card.photo }}" alt="{{ card.name }}" loading="lazy" decoding="async"></figure>
+  {% endif %}
   <div class="card-top">
     <span class="card-badge">{{ icon('onsen') }}{{ card.name }}</span>
     {% if card.spring %}<span class="card-spring">{{ card.spring }}</span>{% endif %}

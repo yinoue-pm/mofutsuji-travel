@@ -53,6 +53,7 @@ class LodgingCard:
     price: Optional[int] = None
     discount: Optional[int] = None      # 負数（割引）
     discount_label: Optional[str] = None
+    photo: Optional[str] = None         # 任意: 宿の写真パス
 
     @property
     def net_price(self) -> Optional[int]:
@@ -70,6 +71,8 @@ class Item:
     cost: Optional[int] = None
     cost_label: Optional[str] = None
     rating: Optional[float] = None
+    photo: Optional[str] = None          # 任意: 写真パス（assets/...）。無ければ枠を出さない
+    photo_credit: Optional[str] = None   # 任意: 出典/撮影クレジット
     card: Optional[LodgingCard] = None
 
     @property
@@ -134,6 +137,7 @@ class Meta:
     route: Optional[str] = None
     created: Optional[str] = None
     lede: Optional[str] = None              # ヒーローのリード文
+    hero_photo: Optional[str] = None        # 任意: ヒーロー背景の写真パス（無ければ和の意匠）
     map: Optional[Dict[str, Any]] = None    # SVGルート図の設定（w/h/start/labels）
 
 
@@ -196,6 +200,7 @@ def parse_document(raw: Dict[str, Any]) -> Document:
         route=raw_meta.get("route"),
         created=raw_meta.get("created"),
         lede=raw_meta.get("lede"),
+        hero_photo=raw_meta.get("hero_photo"),
         map=raw_meta.get("map") if isinstance(raw_meta.get("map"), dict) else None,
     )
 
@@ -249,6 +254,7 @@ def parse_document(raw: Dict[str, Any]) -> Document:
                     price=_as_int(rc.get("price"), f"{where}.card.price", errors),
                     discount=_as_int(rc.get("discount"), f"{where}.card.discount", errors),
                     discount_label=rc.get("discount_label"),
+                    photo=rc.get("photo"),
                 )
             items.append(
                 Item(
@@ -259,6 +265,8 @@ def parse_document(raw: Dict[str, Any]) -> Document:
                     cost=_as_int(ri.get("cost"), f"{where}.cost", errors),
                     cost_label=ri.get("cost_label"),
                     rating=_as_float(ri.get("rating"), f"{where}.rating", errors),
+                    photo=ri.get("photo"),
+                    photo_credit=ri.get("photo_credit"),
                     card=card,
                 )
             )

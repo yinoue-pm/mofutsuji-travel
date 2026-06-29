@@ -77,7 +77,15 @@ a:hover { text-decoration: underline; }
 .wrap { max-width: var(--maxw); margin: 0 auto; padding: 64px 18px 90px; }
 
 /* ---- hero（誌面の表紙）---- */
-.hero { padding: 26px 4px 30px; border-bottom: 2px solid var(--gold); }
+.hero { position: relative; overflow: hidden; padding: 26px 4px 30px; border-bottom: 2px solid var(--gold); }
+/* ヒーロー写真（任意）。無ければ出さない。控えめなデュオトーンで誌面に馴染ませる */
+.hero-photo { aspect-ratio: 16 / 7; margin: 0 0 20px; border-radius: 12px; overflow: hidden;
+  border: 1px solid var(--line); background: var(--accent); }
+.hero-photo img { width: 100%; height: 100%; object-fit: cover;
+  filter: grayscale(.35) sepia(.12) contrast(1.04); }
+/* 青海波（せいがいは）の意匠：写真ゼロでも誌面感を出す和のあしらい（線画＝印刷でも綺麗） */
+.hero-seigaiha { color: var(--accent); opacity: .24; margin: 24px -4px -12px; line-height: 0; }
+.hero-seigaiha svg { display: block; width: 100%; height: 30px; }
 .hero-kicker { margin: 0 0 10px; letter-spacing: .26em; font-size: 11.5px; font-weight: 700; color: var(--accent-2); }
 .hero-title { margin: 0; font-family: var(--font-head); font-weight: 800; line-height: 1.18;
   font-size: clamp(34px, 9vw, 60px); letter-spacing: .02em;
@@ -179,6 +187,15 @@ a:hover { text-decoration: underline; }
 .rating { display: inline-flex; align-items: center; gap: 3px; font-weight: 700; font-size: 12.5px; color: var(--gold); }
 .rating .ico { color: var(--gold); }
 
+/* 写真スロット（任意・無ければ出さない）。デュオトーンで全写真のトーンを統一 */
+.item-photo, .card-photo { margin: 0 0 10px; border-radius: 10px; overflow: hidden;
+  border: 1px solid var(--line); background: var(--accent); }
+.item-photo { aspect-ratio: 16 / 9; }
+.card-photo { aspect-ratio: 3 / 2; margin-bottom: 12px; }
+.item-photo img, .card-photo img { width: 100%; height: 100%; object-fit: cover;
+  filter: grayscale(1) contrast(1.05); mix-blend-mode: luminosity; opacity: .92; }
+.item-photo figcaption, .card-photo figcaption { font-size: 11px; color: var(--ink-soft); padding: 4px 2px 0; }
+
 /* 強調アイテム（カード付き / 高評価） */
 .item.is-highlight > .item-body { background: var(--surface); border: 1px solid var(--line);
   border-left: 4px solid var(--accent-2); border-radius: 12px; padding: 14px 16px;
@@ -273,6 +290,9 @@ a:hover { text-decoration: underline; }
   /* ルート図は線画として綺麗に出る。発着以降の章で改ページ */
   .routemap { page-break-after: always; }
   a { color: var(--ink); }
+  /* 写真は印刷時はフィルタ解除で鮮明に。図版は分断しない */
+  .item-photo, .card-photo, .hero-photo { break-inside: avoid; }
+  .item-photo img, .card-photo img { filter: none !important; mix-blend-mode: normal !important; opacity: 1 !important; }
 }
 </style>
 </head>
@@ -322,6 +342,21 @@ a:hover { text-decoration: underline; }
     <div class="route-head"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"
      stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M8.5 6H15a3 3 0 0 1 0 6H9a3 3 0 0 0 0 6h6.5"/></svg>ルート概要</div>
     <p class="route-body">福津~呉～今治♨🏨～吉野川~眉山～徳島♨🏨～大浜海岸~室戸岬♨🏨～四万十川♨🏨～高知~足摺岬♨🏨～宇和島♨🏨~佐多岬~別府♨🏨～大隅半島～福津</p>
+  </div>
+
+  <div class="hero-seigaiha" aria-hidden="true">
+    <svg viewBox="0 0 1000 30" preserveAspectRatio="xMidYMax slice">
+      <defs>
+        <pattern id="seigaiha" width="80" height="40" patternUnits="userSpaceOnUse">
+          <g fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="40" cy="40" r="36"/><circle cx="40" cy="40" r="24"/><circle cx="40" cy="40" r="12"/>
+            <circle cx="0" cy="40" r="36"/><circle cx="0" cy="40" r="24"/><circle cx="0" cy="40" r="12"/>
+            <circle cx="80" cy="40" r="36"/><circle cx="80" cy="40" r="24"/><circle cx="80" cy="40" r="12"/>
+          </g>
+        </pattern>
+      </defs>
+      <rect width="1000" height="30" fill="url(#seigaiha)"/>
+    </svg>
   </div>
 </header>
   <section class="routemap reveal" id="routemap" aria-label="旅のルート図">
