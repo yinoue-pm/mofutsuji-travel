@@ -34,13 +34,21 @@
 
 {# ---- hero（キッカー→大判明朝タイトル→リード文→統計→ルート） ---- #}
 {% macro hero(doc) -%}
-<header class="hero reveal" id="top">
+<header class="hero reveal {{ 'has-cover' if doc.meta.hero_photo else '' }}" id="top">
   {% if doc.meta.hero_photo %}
-  <div class="hero-photo"><img src="{{ doc.meta.hero_photo }}" alt="" decoding="async"></div>
-  {% endif %}
+  <div class="hero-cover">
+    <img src="{{ doc.meta.hero_photo }}" alt="" decoding="async">
+    <div class="hero-cover-inner">
+      <p class="hero-kicker on-cover">ROAD TRIP ITINERARY</p>
+      <h1 class="hero-title on-cover">{{ doc.meta.title }}</h1>
+      {% if doc.meta.subtitle %}<p class="hero-sub on-cover">{{ doc.meta.subtitle }}</p>{% endif %}
+    </div>
+  </div>
+  {% else %}
   <p class="hero-kicker">ROAD TRIP ITINERARY</p>
   <h1 class="hero-title">{{ doc.meta.title }}</h1>
   {% if doc.meta.subtitle %}<p class="hero-sub">{{ doc.meta.subtitle }}</p>{% endif %}
+  {% endif %}
   {% if doc.meta.lede %}<p class="hero-lede lede">{{ doc.meta.lede }}</p>{% endif %}
   {% if doc.meta.period %}<p class="hero-period">{{ icon('calendar') }}<span class="num">{{ doc.meta.period }}</span></p>{% endif %}
 
@@ -146,7 +154,8 @@
 
 {# ---- セクション（1日＝章扉 ＋ タイムライン） ---- #}
 {% macro section(sec, no) -%}
-<section class="day" id="{{ sec.slug }}">
+{%- set daycolors = ['#1f3a5f','#b5462f','#3f7d5a','#b0772f','#2c4a7a','#7a3b52','#2b6a6a','#8a4a2f'] -%}
+<section class="day" id="{{ sec.slug }}" style="--day-accent: {{ daycolors[(no - 1) % daycolors|length] }}">
   <header class="day-hd reveal">
     <div class="day-no num">{{ '%02d'|format(no) }}</div>
     <div class="day-info">
