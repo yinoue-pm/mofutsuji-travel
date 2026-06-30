@@ -1,22 +1,21 @@
 # =============================================================================
-# 四国7泊8日 温泉巡り 旅程データ
+# 四国 8泊9日 温泉巡り 旅程データ（Ver.2.0 / 2026-06-30 改訂）
 # -----------------------------------------------------------------------------
 # 文章（スポット名・概要・宿のプラン/泉質/効能など）は元PDFの記載どおり。
-# 推測・創作は加えていません。デザイン用の座標(pin)や地方名ラベルのみ別途付与。
-# スキーマの詳細は README.md / src/schema.py を参照。
+# 推測・創作は加えていません。デザイン用の座標(pin)のみ別途付与。
+# 写真ファイル名(dN-*)は旧版の通し番号のままだが、内容（宿/スポット）に紐づく。
 # =============================================================================
 
 meta:
   title: "四国の旅"
-  subtitle: "2026年7月 ／ 7泊8日"
-  period: "2026年7月6日(月) 〜 7月13日(月)"
+  subtitle: "2026年7月 ／ 8泊9日"
+  period: "2026年7月5日(日) 〜 7月13日(月)"
   base_url: "https://yinoue-pm.github.io/mofutsuji-travel/"
-  route: "福津~呉～今治♨🏨～吉野川~眉山～徳島♨🏨～大浜海岸~室戸岬♨🏨～四万十川♨🏨～高知~足摺岬♨🏨～宇和島♨🏨~佐多岬~別府♨🏨～大隅半島～福津"
-  created: "2026年4月22日 (Ver.1.0)"
-  # SVG絵地図（手描き風ルート図）の設定。各 section の pin [x,y] を順に結ぶ。
-  # 座標はデザイン用（地理的配置）。ノード名(map_label)はPDF記載の宿泊地。
+  hero_photo: "assets/d5-inn-bath.jpg"   # 表紙カバー（差し替え可）
+  route: "福津~広島♨🏨～呉～今治♨🏨～吉野川~眉山～徳島♨🏨～大浜海岸~室戸岬♨🏨～四万十川♨🏨～高知~足摺岬♨🏨～宇和島♨🏨~佐多岬~別府♨🏨～大隅半島～福津"
+  created: "2026年6月30日 (Ver.2.0)"
   map:
-    image: "assets/route-map.jpg"   # 実際のルート地図（あればSVG絵地図より優先）
+    image: "assets/route-map.jpg"   # ※この地図は旧ルート（広島追加前）。更新推奨
     w: 1000
     h: 680
     start: { x: 170, y: 250, label: "福津（発着）" }
@@ -24,39 +23,74 @@ meta:
 theme: "tabibook"
 
 hero_stats:
-  - { label: "日程",   value: "7泊8日",    icon: "calendar" }
-  - { label: "走行距離", value: "1,697",   unit: "km", icon: "drive" }
-  - { label: "総予算",  value: "249,297",  unit: "円", icon: "yen" }
-  - { label: "温泉宿",  value: "7",        unit: "湯", icon: "onsen" }
+  - { label: "日程",   value: "8泊9日",    icon: "calendar" }
+  - { label: "走行距離", value: "1,683",   unit: "km", icon: "drive" }
+  - { label: "総予算",  value: "240,532",  unit: "円", icon: "yen" }
+  - { label: "温泉宿",  value: "8",        unit: "湯", icon: "onsen" }
 
 sections:
   # ---------------------------------------------------------------- 1日目
+  - date: "7/5"
+    weekday: "日"
+    label: "1日目"
+    dist_km: 260
+    pin: [470, 175]
+    map_label: "広島"
+    items:
+      - time: "9:00"
+        type: "drive"
+        title: "自宅 防府東ＩＣ〜廿日市ＩＣ"
+        cost: 2150
+        cost_label: "高速料"
+      - time: "12:30-13:30"
+        type: "meal"
+        title: "防府市内 当日決定（紅屋 八王子本店）　☎0835-38-1001"
+        cost: 4000
+        cost_label: "昼食"
+      - time: "16:00"
+        type: "lodging"
+        title: "スーパーホテル広島天然温泉・薬研堀通り"
+        rating: 4.3
+        card:
+          name: "薬研堀 天然温泉 ♨"
+          address: "広島県広島市中区田中町2-28"
+          tel: "082-578-9000"
+          room: "ツインルーム【14㎡】"
+          plan: "☆無料朝食ビュッフェ・男女別天然温泉"
+          spring: "単純弱放射能泉"
+          benefits: "痛風・疲労回復・リウマチ・神経病"
+          price: 12170
+          discount: -10100
+          discount_label: "じゃらんポイント（宿泊料＋駐車料）"
+      - type: "meal"
+        title: "八昌（薬研堀）　☆百名店"
+        rating: 3.70
+        desc: "鉄板で「ジュ〜ッ」と炒める音やソースの焦げる匂いが食欲を刺激します"
+        cost: 5000
+        cost_label: "夕飯"
+
+  # ---------------------------------------------------------------- 2日目
   - date: "7/6"
     weekday: "月"
-    label: "1日目"
+    label: "2日目"
     dist_km: 441
     pin: [560, 290]
     map_label: "今治"
     items:
-      - time: "6:00"
-        type: "meal"
+      - time: "8:00"
+        type: "lodging"
         title: "自宅　【セブンイレブン】"
-        cost: 1000
+        desc: "朝食6:30〜（風呂は24時間）"
+        cost: 0
         cost_label: "朝飯"
-      - time: "8:30-9:00"
-        type: "drive"
-        title: "下松SA（若宮IC〜廿日市IC〜呉IC）"
-        desc: "名物料理から特産品まで『山口の味力（みりょく）』を楽しめるSA"
-        cost: 7150
-        cost_label: "高速料"
-      - time: "10:30-12:00"
+      - time: "9:00-11:30"
         type: "sight"
         title: "大和ミュージアム【全長26.3mの戦艦大和】"
         desc: "戦艦「大和」を建造した軍港。設計図や写真、潜水調査水中映像などをもとに、可能な限り詳細に再現した"
         cost: 2300
         cost_label: "観覧料＋駐車場"
         photo: "assets/d1-yamato.jpg"
-      - time: "12:10-13:00"
+      - time: "11:40-12:30"
         type: "meal"
         title: "呉ハイカラ食堂"
         rating: 3.48
@@ -67,12 +101,12 @@ sections:
         title: "しまなみ海道（西瀬戸尾道IC〜大浜PA〜瀬戸田PA〜上浦PA〜来島海峡SA〜今治料金所）"
         cost: 2950
         cost_label: "高速料"
-      - time: "17:00"
+      - time: "16:30"
         type: "lodging"
         title: "瀬戸内の水軍浪漫をたどる宿"
         rating: 4.2
         card:
-          name: "湯ノ浦♨"
+          name: "湯ノ浦 ♨"
           photos: ["assets/d1-inn-exterior.jpg", "assets/d1-inn-bath.jpg", "assets/d1-inn-room.jpg", "assets/d1-inn-meal.jpg"]
           address: "愛媛県今治市湯ノ浦30番地"
           tel: "0898-47-0707"
@@ -83,11 +117,15 @@ sections:
           price: 20700
           discount: -5000
           discount_label: "シルバー＋SPウイーク"
+      - type: "meal"
+        title: "お酒"
+        cost: 2000
+        cost_label: "お酒"
 
-  # ---------------------------------------------------------------- 2日目
+  # ---------------------------------------------------------------- 3日目
   - date: "7/7"
     weekday: "火"
-    label: "2日目"
+    label: "3日目"
     dist_km: 620
     pin: [840, 285]
     map_label: "徳島"
@@ -121,7 +159,7 @@ sections:
         title: "ホテルサンルート徳島"
         rating: 4.4
         card:
-          name: "びざんの♨"
+          name: "びざんの ♨"
           photos: ["assets/d2-hotel-exterior.jpg", "assets/d2-hotel-bath.jpg", "assets/d2-hotel-room.jpg"]
           address: "徳島県徳島市元町1-5-1"
           tel: "088-653-8111"
@@ -141,10 +179,10 @@ sections:
         cost_label: "夕飯"
         photo: "assets/d2-ponzu.jpg"
 
-  # ---------------------------------------------------------------- 3日目
+  # ---------------------------------------------------------------- 4日目
   - date: "7/8"
     weekday: "水"
-    label: "3日目"
+    label: "4日目"
     dist_km: 804
     pin: [835, 470]
     map_label: "室戸"
@@ -165,13 +203,9 @@ sections:
         title: "蒲生田岬（四国最東端）"
         desc: "シンボルである灯台からの景色はまさに絶景。晴れた日は海を挟んだ和歌山県まで見渡せることもある"
         photo: "assets/d3-kamoda.jpg"
-      - time: "11:30-12:00"
-        type: "sight"
-        title: "大浜海岸 美波町"
-        desc: "日本の渚百選のひとつであり、アカウミガメの産卵地として有名な海岸"
       - time: "12:10-13:30"
         type: "meal"
-        title: "手打ち蕎麦 美波乃風　☎080-6235-4110"
+        title: "手打ち蕎麦 美波乃風（大浜海岸）　☎080-6235-4110"
         rating: 3.25
         desc: "まさに隠れた名店とはこの事！！　蕎麦は十割で腰も香りも申し分ない"
         cost: 3000
@@ -199,20 +233,20 @@ sections:
         title: "ニューサンパレスむろと"
         rating: 4.1
         card:
-          name: "大浴場♨"
+          name: "大浴場 ♨"
           photos: ["assets/d3-inn-exterior.jpg", "assets/d3-inn-bath.jpg", "assets/d3-inn-room.jpg"]
           address: "室戸市領家235-1"
           tel: "0887-22-0012"
           room: "海と夕日が見えるフローリングタイプ（布団式）　現地払い"
           plan: "【素泊まり】フェイスタオル（￥50）バスタオル（￥200）浴衣（￥250）"
           price: 13200
-          discount: -6600
-          discount_label: "じゃらんポイント"
+          discount: -8200
+          discount_label: "シルバー + じゃらん"
 
-  # ---------------------------------------------------------------- 4日目
+  # ---------------------------------------------------------------- 5日目
   - date: "7/9"
     weekday: "木"
-    label: "4日目"
+    label: "5日目"
     dist_km: 1096
     pin: [575, 515]
     map_label: "四万十"
@@ -244,7 +278,7 @@ sections:
         title: "ホテル松葉川温泉"
         rating: 4.4
         card:
-          name: "松葉川♨"
+          name: "松葉川 ♨"
           photos: ["assets/d4-inn-exterior.jpg", "assets/d4-inn-bath.jpg", "assets/d4-inn-room.jpg", "assets/d4-inn-meal.jpg"]
           address: "高知県高岡郡四万十町日野地605-1"
           tel: "0880-23-0611"
@@ -253,17 +287,17 @@ sections:
           spring: "単純硫黄冷鉱泉"
           benefits: "筋肉痛、冷え性、病後回復期、健康増進、きりきず、抹消循環障害、うつ状態、皮膚乾燥症、糖尿病"
           price: 23300
-          discount: -1000
-          discount_label: "お得な10日間クーポン"
+          discount: -2500
+          discount_label: "ゴールドクーポン"
       - type: "meal"
         title: "お酒"
         cost: 2000
         cost_label: "お酒"
 
-  # ---------------------------------------------------------------- 5日目
+  # ---------------------------------------------------------------- 6日目
   - date: "7/10"
     weekday: "金"
-    label: "5日目"
+    label: "6日目"
     dist_km: 1209
     pin: [470, 610]
     map_label: "足摺"
@@ -299,27 +333,27 @@ sections:
         title: "星空と海の宿　足摺国際ホテル"
         rating: 4.7
         card:
-          name: "あしずり♨"
+          name: "あしずり ♨"
           photos: ["assets/d5-inn-exterior.jpg", "assets/d5-inn-bath.jpg", "assets/d5-inn-room.jpg", "assets/d5-inn-meal.jpg"]
           address: "高知県土佐清水市足摺岬662"
           tel: "0880-88-0201"
-          room: "【海側コンパクトルーム】〔和室8畳〕　現地払い"
-          plan: "【夕食のボリューム控えめ会席】プラン★少食の方も大満足の旅★"
+          room: "【海側コンパクトルーム】〔和室8畳〕"
+          plan: "■あしずり基本会席■足摺流の＜鰹のタタキ＞ほか、旬の幸をたっぷりと♪"
           spring: "単純弱放射能温泉"
           benefits: "神経痛、慢性消化器病、冷え性、慢性婦人病、動脈硬化症、痛風、高血圧症"
-          price: 32200
-          discount: -3000
-          discount_label: "お得な10日間クーポン"
+          price: 32694
+          discount: -4500
+          discount_label: "ゴールドクーポン"
       - type: "meal"
         title: "お酒"
         cost: 2000
         cost_label: "お酒"
 
-  # ---------------------------------------------------------------- 6日目
+  # ---------------------------------------------------------------- 7日目
   - date: "7/11"
     weekday: "土"
-    label: "6日目"
-    dist_km: 1391
+    label: "7日目"
+    dist_km: 1398
     pin: [405, 405]
     map_label: "伊方"
     items:
@@ -329,172 +363,181 @@ sections:
         desc: "朝食7:00〜（風呂は5:30〜8:30）　道の駅 みしょうMIC（11:10〜11:30）"
         cost: 0
         cost_label: "朝飯"
-      - time: "12:20-13:00"
+      - time: "11:30-12:00"
+        type: "sight"
+        title: "紫電改（しでんかい）展示館"
+        desc: "昭和53年に海底から引き上げられた旧日本海軍の戦闘機が国内で唯一見られる。世界に4機しか現存しない貴重なもの"
+        cost: 0
+        cost_label: "入館料"
+      - time: "13:00-14:00"
         type: "meal"
         title: "まえの　☎0895-22-8288"
         rating: 3.64
         desc: "十割「細挽きせいろ」そばと皮ごと挽きぐるみした香り高い「粗挽き田舎」そばの2種類が味わえる"
         cost: 4000
         cost_label: "昼飯"
-      - time: "13:10-14:30"
+      - time: "14:10-15:30"
         type: "sight"
         title: "宇和島城（天守閣は国指定重要文化財）"
         desc: "標高80mの丘上に築かれた平山城で藤堂高虎の築城による。伊達氏2代宗利が大改修し現在の形となる"
         cost: 500
         cost_label: "天守入場料＋駐車場"
         photo: "assets/d6-uwajima.jpg"
-      - time: "14:50-15:00"
+      - time: "15:50-16:00"
         type: "meal"
-        title: "河合太刀魚巻店（創業150年の老舗）"
+        title: "河合太刀魚巻店【創業150年の老舗】　☎0895-52-0122"
         rating: 3.27
-        desc: "肉厚で脂がタップリのった太刀魚を天然の竹に巻き付け、特製のたれをつけて炭火でじっくり焼いたもの"
+        desc: "肉厚で脂がタップリのった太刀魚を天然の竹に巻き付け、炭火でじっくり焼いたもの"
         cost: 2000
         cost_label: "軽食"
-      - time: "16:00"
+      - time: "16:40-17:30"
+        type: "sight"
+        title: "エースワン 八幡浜店"
+        desc: "開業50周年。四国に19店舗を展開するスーパー"
+      - time: "17:40-18:30"
+        type: "meal"
+        title: "八幡浜市内 夕食 食堂ごりらくん【3.23】／炭火焼肉 平和伝【3.03】"
+        cost: 6000
+        cost_label: "夕食"
+      - time: "19:00"
         type: "lodging"
         title: "亀ヶ池温泉　亀乃湯別邸"
         rating: 4.6
         card:
-          name: "伊方亀ヶ池♨"
+          name: "伊方亀ヶ池 ♨"
           photos: ["assets/d6-inn-exterior.jpg", "assets/d6-inn-bath.jpg", "assets/d6-inn-room.jpg", "assets/d6-inn-meal.jpg"]
           address: "愛媛県西宇和郡伊方町二見甲1289番地"
           tel: "0894-39-1160"
-          room: "和室【天海】14.4㎡"
-          plan: "【カップルプラン／1泊2食】岩盤浴無料の特典付！＜釜めし・にぎり寿司・鯛めし★選べる夕食＞温泉満喫"
+          room: "ツインルーム【天海】14.4㎡"
+          plan: "【素泊り】 地下1,500mから湧き出る天然温泉を満喫！四国最西端の温泉"
           spring: "ナトリウムー塩化物温泉"
           benefits: "筋肉痛、冷え性、病後回復期、健康増進、きりきず、抹消循環障害、うつ状態、皮膚乾燥症"
-          price: 34000
-          discount: -6000
-          discount_label: "お得な10日間クーポン"
-      - type: "meal"
-        title: "お酒"
-        cost: 2000
-        cost_label: "お酒"
+          price: 15600
+          discount: -1000
+          discount_label: "6月＆7月限定クーポン"
 
-  # ---------------------------------------------------------------- 7日目
+  # ---------------------------------------------------------------- 8日目
   - date: "7/12"
     weekday: "日"
-    label: "7日目"
-    dist_km: 1461
+    label: "8日目"
+    dist_km: 1468
     pin: [250, 430]
     map_label: "別府"
     items:
-      - time: "9:00"
+      - time: "8:00"
         type: "lodging"
         title: "宿発"
         desc: "朝食7:00〜（風呂は7:00〜10:00）"
-      - time: "9:30"
+        cost: 1000
+        cost_label: "朝食"
+      - time: "8:30"
         type: "sight"
         title: "三崎港（佐田岬）"
         desc: "晴れた日には、対岸の九州を望むことが出来るほどの近さにあり、佐賀関へのフェリー航路がある"
         cost: 1000
         cost_label: "軽食"
-      - time: "10:30"
+      - time: "9:30"
         type: "ferry"
-        title: "三崎港 発【国道九四フェリー】"
+        title: "三崎港 発【国道九四フェリー】（予約済）"
         desc: "愛媛の佐多岬半島の先端、三崎から九州大分の佐賀関までを結ぶ九州・四国間の最短航路（31㎞）"
-        cost: 11000
+        cost: 11120
         cost_label: "フェリー代"
-      - time: "11:40"
+      - time: "10:40"
         type: "ferry"
         title: "佐賀関港 着"
         desc: "大分市景観条例の景観形成重要地区に該当している"
-      - time: "12:40-14:00"
+      - time: "11:40-13:30"
         type: "meal"
         title: "とんかつ & とり天 しげのや食堂"
         rating: 3.55
         desc: "愛しのソウルフード選手権！九州沖縄 食べにいき大賞。優勝！"
         cost: 5000
         cost_label: "昼食"
-      - time: "14:30-15:00"
+      - time: "14:00-14:30"
         type: "sight"
         title: "道の駅 たのうらら"
         desc: "絶景を見ながらスイーツやドリンクでゆっくりと過ごせます。ごく稀にイルカの姿が見える事も"
       - time: "15:30"
         type: "lodging"
-        title: "癒しの宿 別府豊泉荘"
-        rating: 4.1
+        title: "別府ステーションホテル"
+        rating: 4.2
         card:
-          name: "別府♨"
-          photos: ["assets/d7-inn-exterior.jpg", "assets/d7-inn-bath.jpg", "assets/d7-inn-room.jpg", "assets/d7-inn-meal.jpg", "assets/d7-yukemuri.jpg"]
-          address: "大分県別府市青山町5-73"
-          tel: "0977-23-4281"
-          room: "和室6畳"
-          plan: "【焼酎バー＆庭園露天風呂貸切付】別府温泉と大分豊後を味わう【カジュアル・別府会席】"
-          spring: "炭酸水素塩泉"
-          benefits: "アトピー、湿疹、皮膚病、美肌効果"
-          price: 21140
-          discount: -3900
-          discount_label: "じゃらんクーポン"
+          name: "別府 ♨"
+          address: "大分県別府市駅前町13-4"
+          tel: "0977-24-5252"
+          room: "スタンダードツイン"
+          plan: "【お得な朝食バイキング付きプラン】"
+          spring: "ナトリウムー炭酸水素塩泉"
+          benefits: "慢性皮膚病、神経痛、筋肉痛、慢性消化器病、湿疹、皮膚病、美肌効果"
+          price: 8330
+          discount: -800
+          discount_label: "じゃらん スペシャル"
       - type: "meal"
-        title: "お酒"
-        cost: 2000
-        cost_label: "お酒"
+        title: "別府市内 夕食 ぎょうざ 湖月【3.72 百名店】 ⇒ 亀正くるくる寿司【3.70】"
+        cost: 10000
+        cost_label: "夕飯"
 
-  # ---------------------------------------------------------------- 8日目
+  # ---------------------------------------------------------------- 9日目
   - date: "7/13"
     weekday: "月"
-    label: "8日目"
-    dist_km: 1697
-    map_label: "福津"
+    label: "9日目"
+    dist_km: 1683
     items:
       - time: "9:30"
         type: "lodging"
         title: "宿発"
-        desc: "朝食7:30〜（風呂は6:00〜9:00）"
+        desc: "朝食7:00〜（風呂は6:00〜9:00）"
         cost: 0
         cost_label: "朝飯"
-      - time: "11:00-12:00"
+      - time: "10:40-11:00"
+        type: "sight"
+        title: "道の駅 くにさき"
+        desc: "新鮮野菜が並ぶ農産物直売所と国東の銘菓、地酒などが並ぶ土産物屋がある"
+      - time: "11:30-12:00"
         type: "sight"
         title: "道の駅 くにみ（国東半島先端部）"
         desc: "海の向こうに山口県を遠望するナイスビューポイント。海の幸などんの特産物が並ぶ。「たこめし膳」がお勧め"
         cost: 1000
         cost_label: "軽食"
-      - time: "12:40〜"
+      - time: "12:15-12:30"
         type: "sight"
-        title: "宇佐神宮（全国4万600社の八幡社の総本宮）"
-        desc: "樹齢約800年を誇るご神木の「大楠の木」をはじめ、「夫婦石」、「願掛け地蔵」など、見どころ満載"
-        cost: 200
-        cost_label: "入館料"
-      - time: "14:00"
+        title: "長崎鼻"
+        desc: "国東半島の先端に位置します。周防灘に向かい「鼻」のように突き出した岬"
+      - time: "13:00-14:30"
+        type: "sight"
+        title: "宇佐神宮"
+        desc: "全国に4万社ある八幡様の総本宮。八幡大神（応神天皇）・神功皇后をご祭神にお祀りし、神亀2年に創建された"
+        cost: 400
+        cost_label: "駐車場"
+      - time: "14:30〜"
         type: "meal"
         title: "かくまさ 観光土産店"
         rating: 3.31
         desc: "郷土料理のだんご汁をはじめ、大分名物とり天、宇佐名物からあげも大人気"
         cost: 3000
         cost_label: "昼食"
-      - time: "14:40-16:00"
-        type: "sight"
-        title: "青の洞門"
-        desc: "江戸時代、約30年を掛けてノミと槌だけで彫られた隧道。人と馬が命を落とす光景に心を痛めた禅海和尚が掘り抜いた"
-        cost: 1000
-        cost_label: "軽食"
-      - time: "16:30-17:00"
-        type: "sight"
-        title: "福澤諭吉旧居・福澤記念館"
-        desc: "「学問のすゝめ」で人間の自由・平等・権利の尊さを説き、日本の教育文化の礎を築いた諭吉の旧居"
-        cost: 800
-        cost_label: "観覧料"
-      - time: "17:20"
+      - time: "17:00"
+        type: "meal"
+        title: "レストラン 明治屋 飯塚店"
+        rating: 3.15
+        desc: "こだわりの明治屋ハンバーグは和豚もちぶた100％使用。豚肉の旨味と甘みを存分に堪能できる"
+        cost: 4000
+        cost_label: "夕飯"
+      - time: "18:00"
         type: "drive"
-        title: "豊前IC〜古賀IC"
-        cost: 2550
-        cost_label: "高速料"
-      - time: "18:30"
-        type: "drive"
-        title: "ガソリン"
-        cost: 22627
+        title: "自宅（帰着）"
+        cost: 21038
         cost_label: "ガソリン"
 
 # -----------------------------------------------------------------------------
 # 集計（横棒グラフ）。total は内訳の合計と一致することを build 時に検証します。
 # -----------------------------------------------------------------------------
 summary:
-  total: 249297
+  total: 240532
   note: "概算予算（実績欄は旅行後に追記）"
   breakdown:
-    - { label: "ホテル代", amount: 161940 }
-    - { label: "食事代",   amount: 64000 }
-    - { label: "交通費",   amount: 46277 }
-    - { label: "入場料",   amount: 7080 }
-    - { label: "割引",     amount: -30000 }
+    - { label: "ホテル代", amount: 143394 }
+    - { label: "食事代",   amount: 90000 }
+    - { label: "交通費",   amount: 37658 }
+    - { label: "入場料",   amount: 6080 }
+    - { label: "割引",     amount: -36600 }
